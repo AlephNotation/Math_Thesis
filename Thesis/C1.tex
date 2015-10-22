@@ -1,0 +1,18 @@
+\chapter{Introduction}
+\section{The Setting: Robots in Industry}
+As a result of recent technological advances, robotic engineers, mathematicians, and computer scientists have witnessed a proliferation of robotics across a wide range of industrial applications. Robots are generally employed in this matter to complete tasks which humans cannot, and so are highly specialized and expensive. In order to carry out tasks, robots are often required to move around a workspace; however, robots are fragile and so collisions result in costly repairs and extensive downtime.
+
+Robotic movement can be broadly defined into two categories: restricted and unrestricted movement. Robots with restricted movement capabilities have fixed movement networks, such as wires or tracks which connect different stations in a workspace. Robots whose movements are unrestricted however, have access to a full degree of movement. While robots with an unrestricted movement network may be more ubiquitous in the public mind, their initial and subsequent maintenance costs are significant, and so robots with fixed movement networks are utilized to a higher degree. 
+
+While these movement networks may be simple to visually illustrate, the set of all possible robot configurations, which we call the configuration space, is typically not. We often find configuration spaces defy our ability to graphically conceptualize due to the fact that they exist in extremely high dimensions. Furthermore, the complexity of their dimension grows linearly with each additional robot added.
+
+This problem of dimensional complexity also poses problems for finding collision-free movement schemes. In order to determine the optimal schedule for robotic movement, robotic engineers often employ graph algorithms to find safe movement patterns, however, the complexity of configuration spaces often renders these algorithms increasingly inefficient as movement networks become more complicated.
+
+Thus the problem is this: Given $N$ named robots on a movement network $\Gamma$ with a configuration space $C^N(\Gamma)$, how can we simplify the configuration space in order to apply graph algorithms?
+
+\section{Contributions of this Thesis}
+This thesis expands upon the work done by A. Abrams in his thesis \cite{thesis}, which is summarized in an article he coauthored with R. Ghrist \cite{factory}. The article presents a summary of their work, but spares a significant number of details. Abram's thesis, however, requires a deep background in algebraic topology. This work will serve as a bridge between these two texts.
+
+In order to establish the mathematical framework to discuss the problem, chapter 2 will serve as an introduction to topics of graph theory and topology, and then proceed to introduce a bridge between these two fields. This chapter is by no means an exhaustive text of either subject, but offers a useful survey of the relevant concepts. The remainder of this thesis will devote itself to the creation of and discretization from an example fixed movement network. Chapter 3 will explicitly construct a movement space in order to find the configuration space. We will then describe the discretization process in chapter 4. The paper will conclude by discussing theorems about when the techniques examined in chapters 3 and 4 can be safely applied.
+
+While building and discretizing the configuration space for the specific example provided in chapters 3 and 4 may prove valuable, we hope that readers use this work as a lesson for how techniques presented here can be generally applied.

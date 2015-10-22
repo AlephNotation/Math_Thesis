@@ -1,0 +1,58 @@
+\documentclass[12pt,oneside]{amsbook}
+\usepackage[utf8]{inputenc}
+\renewcommand{\baselinestretch}{2}
+\usepackage[utf8]{inputenc}
+
+\numberwithin{equation}{chapter}
+% This numbers the equations within each chapter as 1.1, 1.2, 2.1, etc.
+\numberwithin{figure}{chapter}
+\numberwithin{section}{chapter}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{graphicx}
+
+\newtheorem{thm}{Theorem}[chapter]
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{corollary}[thm]{Corollary}
+
+\newenvironment{defn}[1][Definition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\n}{$n$}
+\newcommand{\Y}{\Gamma_Y}
+\newcommand{\C}{$C^2(\Y)$}
+
+
+\begin{document}
+\frontmatter % Pages here will be numbered with Roman numerals.
+\title[]{Collision Avoidance on Finite Graphs}
+\author{Tynan Flawn Sailor Daly}
+\address{Department of Mathematics\\Bates College\\Lewiston, ME 04240}
+\date{December 12, 2014}
+\maketitle
+
+\newpage
+\thispagestyle{empty}
+\include{cover}
+\setcounter{page}{2}
+
+\tableofcontents
+ \listoffigures
+
+\include{ack}           % Acknowledgments
+\mainmatter
+\include{C1}   			% Introduction 
+\include{C2}
+\include{C3}
+\include{C4}
+\include{C5}
+
+\backmatter
+		% Use \include{appendixB} to include another appendix.
+\bibliographystyle{unsrt}%Used BibTeX style is unsrt
+\bibliography{TheBib}
+\end{document}

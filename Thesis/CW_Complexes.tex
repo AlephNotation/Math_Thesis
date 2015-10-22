@@ -1,0 +1,148 @@
+\documentclass[12pt,oneside]{amsbook}
+\usepackage[utf8]{inputenc}
+
+\usepackage[
+backend=bibtex,
+style=alphabetic,
+sorting=ynt
+]{biblatex}
+\addbibresource{TheBib.bib} %Imports bibliography file
+
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{graphicx}
+
+\newtheorem{thm}{Theorem}[chapter]
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{corollary}[thm]{Corollary}
+
+\newenvironment{defn}[1][Definition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\n}{$n$}
+
+
+
+\begin{document}
+
+
+\section{CW Complexes}
+The problem of collision avoidance along fixed movement networks exists in graph theory, but we rely on topological tools to determine solutions. To create the crucial link between the two fields, we will employ CW complexes. As with graphs, CW complexes may be either finite or infinite, but for the purposes of this paper we will only focus our attention of the finite case. We begin by carefully defining an \textbf{\n-ball}.
+
+%fixed path movement
+\begin{defn}
+The $n$-ball is defined as $$D^n=\{\textbf{x}=(x_1,x_2,\dots, x_n)\in \R^n |\text{  } |\textbf{x}| \leq 1\};$$ the boundary of the \n-ball is defined as the \n-sphere given by $$ S^{n-1} = \{\textbf{x}\in D^n | \text{  } |\textbf{x}|=1\};$$ and their difference is the open \n-ball, denoted $B^n$, defined as $$B^n = D^n \setminus S^{n-1} = \{\textbf{x}\in D^n | \text{  } |\textbf{x}|< 1\}.$$ 
+\end{defn}
+Note that we can rearrange the definition of an open \n-ball to define an \n-ball as $D^n= B^n \cup S^{n-1}$. 
+
+Having defined \n-balls, let us examine some explicit examples. Since the $0$-ball is a special case, $D^0=\{0\}$, let us consider the $1$-ball. We know by the previous definition that $D^1=\{x\in \R| \text{  } |x|\leq 1\} = [-1,1]$. We also know the boundary to be $S^0=\{x \in B^1| \text{  } |x|=1\} = \{-1,1\}$. We obtain the interior by removing the boundary from our open ball, $$B^n = [-1,1] \setminus \{-1,1\} = (-1,1).$$
+
+Having established a rigorous definition for \n-balls, we generalize our understanding to obtain a definition of an \textbf{open \n-cell}.
+
+\begin{defn}
+A subspace $e$ of $X$ is considered an open \n-cell in $X$ if it homeomorphic to $B^n$. We now define $e$ to be a \textbf{closed \n-cell} in $X$ if it is the closure in X of an open \n-cell.
+\end{defn}
+
+While we still lack the tools to formally define a CW complex, we are moving in the right direction. We can intuit CW complexes as the union of disjoint open cells \cite{cw}.
+
+Let us explore our newfound intuition by demonstrating that a $1$-cell is the disjoint union of $B^n \cup S^0$. Let us state the sets explicitly;
+\begin{align*}
+B^1 &= B^n \cup S^0\\
+B^1 &= (-1,1) \cup \{-1,1\}.
+\end{align*}
+
+Next, we partition $\{-1,1\}$ into $\{-1\}\cup\{1\}$. Thus we have $$B^1 = (-1,1) \cup \{-1\}\cup\{1\},$$ which is a union of a distinct $n$-cells. Referring back to the previous definition, it is clear that $B^n$ is an open $1$-cell and $B^1$ is the closed $1$-cell.
+
+Having accustomed ourselves to working with a $1$-cell, we can now generalize our previous method for any $n$-cells where $n\geq 1$.
+
+\begin{proof}
+We will show that if $n\geq1$, then the closed \n-cell is the disjoint union of an open \n-cell, an $(n-1)$-cell, and a $0$-cell. Since an \n-cell is by definition homeomorphic to an \n-ball, it will suffice show that an \n-ball is the distinct union of open balls.
+
+Let the open \n-cell be $B^n$, the $(n-1)$-cell be $S^{n-1}$, and the $0$-cell be defined as $e_0=(1,0,0,\dots, 0)$. Recall $D^n= B^n \cup S^{n-1}$.  In our previous exercise we only had two elements which we could remove from our $(n-1)$-cell, so to account for any \n-cell, so we must generalize the point to be removed. We ``puncture'' \cite{cw} $S^{n-1}$ by removing $e_0$. Thus our $(n-1)$-cell is now $(S^{n-1}\setminus e_0)$. When preformed explicitly, this step yields
+\begin{align*}
+D^n&= B^n \cup S^{n-1}\\
+D^n&= B^n \cup (S^{n-1}\setminus e_0) \cup e_0.
+\end{align*}
+Thus if $n\geq1$, then the closed \n-cell is the disjoint union of an open \n-cell, an $(n-1)$-cell, and a $0$-cell.
+\end{proof}
+\vspace{7mm}
+Let us now take a moment to examine Figure \ref{fig:ncells} to help us in digesting the proceeding formalism.
+
+\begin{figure}[h]
+\label{fig:ncells}
+\centering
+\caption{A $0$-cell, a Closed $1$-cell, and a Closed $2$-cell}
+\begin{tikzpicture}
+  [scale=.8,auto=left,every node/.style={circle,fill=blue!30}]
+  \node (n1) {a};
+
+\end{tikzpicture}
+\hspace{.5in}
+\begin{tikzpicture}
+  [scale=.8,auto=left,every node/.style={circle,fill=blue!30}]
+  \node (n1) {a};
+  \node (n2) [right of=n1]  {b};
+
+\foreach \from/\to in
+{n1/n2}
+    \draw (\from) -> (\to);
+\end{tikzpicture}
+\hspace{.5in}
+\begin{tikzpicture}
+  [scale=.8,auto=left,every node/.style={circle,fill=blue!30}]
+  \node (n1)                {d};
+  \node (n2) [right of=n1]  {c};
+  \node (n3) [below of=n2]  {b};
+  \node (n4) [below of=n1]  {a};
+
+\foreach \from/\to in
+{n1/n2, n2/n3, n3/n4, n4/n1}
+    \draw (\from) -> (\to);
+    \path[fill=blue!50,opacity=.5] (n1.center) to (n2.center) to (n3.center) to (n4.center) to (n1.center);
+\end{tikzpicture}
+\end{figure}
+%\printbibliography
+
+The leftmost object is a $0$-cell. As we have discussed before, we may think of a $0$-cell as a point. The middle object is the closed $1$-cell. It is plain to see that the open $1$-cell is the line between $0$-cells labeled $a$ and $b$, which is the $1$-cell's closure as we have previously discussed. The rightmost object is the closed $2$-cell. The shaded region is the open $2$-cell and with a closed by four closed $1$-cells neatly glued together. As we can see the joined closed $1$-cells are homeomorphic to a $S^1$, and so our previous exercises hold visually.
+
+There is, however, something more going on here. Let us consider all three objects at once; specifically the progression from left to right. Notice how the $1$-cell is built off of the $0$-cell and how the $2$-cell is built off of the $1$-cell. We can iterate this process forward one to describe a $3$-cell. The closed $3$-cell the open cube, the open $3$-cell, with a boundary cube consisting of six nicely attached $2$-cells. 
+
+Expanding on the previous observation, we may now construct a space $X$.  Our construction has three distinct steps;
+\begin{enumerate}
+\item We begin by considering the collection of $0$-cells. This set, called $X^0$, is the set of all elements whose neighborhood is a singleton.
+\item We inductively then form the \textbf{$n$-skeleton} $X^n$ by building off of $X^{n-1}$. We do this by attaching $n$-cells $e^0_\alpha$ via maps $f_\alpha \colon S^{n-1} \rightarrow X^{n-1}$. This process generates the closed $n$-cells of $X^N$ by taking a disjoint union of $X^n \bigcup_\alpha D^n_\alpha$ under the restriction that $x \simeq f(x)$ for all $x$ on the boundary of every $D^n_\alpha$. This last condition removes the already exists $(n-1)$-cells from every $D^n_\alpha$, leaving us simply with open the distinct union of $X^{n-1}\bigcup_\alpha B^n_\alpha$. %Equivalently, $X^n = X^{n-1} \bigcup_\alpha e^n_\alpha$ where every $e^n_\alpha$ is an open n-ball.
+\item Since we are only interested in finite spaces, we let $X=X^n$ for some $n<\infty$.
+\end{enumerate}
+
+Spaces constructed in this fashion are called $\textbf{CW complexes}$\cite{at}. 
+
+The value in defining graphs in terms of CW complexes will soon become abundantly clear, but we can gleam important implications from our definition. 
+
+The first result is that CW complexes are easily expandable because they are built form the permutations of lower dimensional CW complexes without altering their fundamental structure \cite{cw}. Let us return to our discussion on graph theory. Recall the definition of a tree. If were to use trees to model the movement of AVG's and suddenly needed to expand our movement space, then we would need to be very careful in how we added vertices and nodes for fear of our graph no longer satisfying the definition of a tree.
+
+The other important result is that for every CW complex $X^n$ retracts onto $X^{n-1}$. Let us return to step two of our construction. We can think about this step as something similar to the opposite a retraction, we are expanding the space. Doing so will aid our intuition in the following in proving that given the pair of CW complexes $X$ and $A$, called a \textbf{CW Pair} and denoted as $(X^n, A)$, then $X\times \{0\} \times A\times I$ is the deformation retract of $X\times I$.
+
+\begin{proof}
+There exists a deformation retract $F\colon D^n \times I \rightarrow D^n \times \{0\} \cup S^{n-1} \times I$. Consider the projection, the counterpart to a retraction, from $(0,2)\in D^n \times I$. We set $F(\textbf{x}, t) = (t)f(x) + (1-t)Id_{(0,2)}$, which retracts $D^n \times I$ onto $D^n \times \{0\} \cup S^{n-1} \times I$. 
+
+It follows from our construction that we may define retract $ X^n \times I $ onto $ D^n \times \{0\} \cup (X^{n-1} \cup  \times I$ using $F$ only when  be $t\in [\frac{1}{2}^{1+n}, \frac{1}{2}^{n}]$. We restricting the deformation of this interval, $F$ is continuous. \cite{at}
+\end{proof}
+
+The formal definition of a CW complex relies on topological tools outside the scope of this work, for curious readers wishing to learn more about we refer you to either \cite{at} or \cite{cw}.
+
+While the actual definition of a CW complex still evades us, our interest lies in their application and so we will exchange rigor for convenience as we begin to apply our newfound mathematical tools to now comprehensible problems.
+\end{document}
+
+
+
+
+
+
+
+
+
+
